@@ -1,24 +1,21 @@
-<ion-header>
+<ion-header color="secondary">
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Shop</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <ion-list-header>Shopping list</ion-list-header>
-    <ion-item-sliding *ngFor="let item of items">
+    <ion-list-header>
+      My shopping list <span class="pull-right">{{ myItemsLength() }} {{ plural('item',myItemsLength()) }}</span>
+    </ion-list-header>
+    <ion-item-sliding *ngFor="let item of myItems">
       <ion-item>
-        <ion-label>{{ item.name }}</ion-label>
-        <ion-checkbox>{{ item.name }}</ion-checkbox>
+        <ion-label>{{ item.name }} <span class="pull-right">{{item.price}}€</span></ion-label>
+        <ion-checkbox></ion-checkbox>
       </ion-item>
       <ion-item-options side="left">
-        <button ion-button (click)="favorite(item)">Favorite</button>
-        <button ion-button color="danger" (click)="share(item)">Share</button>
-      </ion-item-options>
-
-      <ion-item-options side="right">
-        <button ion-button (click)="add()">Unread</button>
+        <button ion-button (click)="remove(item)">Remove</button>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
@@ -32,13 +29,11 @@
         #{{ item.id }}. {{ item.name }}
       </ion-item>
       <ion-item-options side="left">
-        <button ion-button (click)="favorite(item)">Favorite</button>
-        <button ion-button color="danger" (click)="share(item)">Share</button>
-      </ion-item-options>
-
-      <ion-item-options side="right">
-        <button ion-button (click)="add()">Unread</button>
+        <button ion-button (click)="add(item)">Add</button>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
+  <ion-toolbar>
+    <ion-title class="pull-right"> <ion-icon name="cart"></ion-icon> Total cart: {{ totalCartPrice() }} € </ion-title>
+  </ion-toolbar>
 </ion-footer>

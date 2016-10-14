@@ -1,5 +1,5 @@
 {
-  "name": "carrefour-app",
+  "name": "tadhack",
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
   "private": true,
@@ -33,6 +33,7 @@
     "@ionic/app-scripts": "^0.0.30",
     "typescript": "^2.0.3"
   },
+  "description": "tadhack: An Ionic project",
   "cordovaPlugins": [
     "cordova-plugin-device",
     "cordova-plugin-console",
@@ -41,13 +42,5 @@
     "cordova-plugin-statusbar",
     "ionic-plugin-keyboard"
   ],
-  "cordovaPlatforms": [
-    "ios",
-    {
-      "platform": "ios",
-      "version": "",
-      "locator": "ios"
-    }
-  ],
-  "description": "carrefour-app: An Ionic project"
+  "cordovaPlatforms": []
 }
