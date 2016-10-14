@@ -4,18 +4,30 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic! Hola</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content>
   <ion-list>
+    <ion-list-header>Shopping list</ion-list-header>
     <ion-item-sliding *ngFor="let item of items">
+      <ion-item>
+        <ion-label>{{ item.name }}</ion-label>
+        <ion-checkbox>{{ item.name }}</ion-checkbox>
+      </ion-item>
+      <ion-item-options side="left">
+        <button ion-button (click)="favorite(item)">Favorite</button>
+        <button ion-button color="danger" (click)="share(item)">Share</button>
+      </ion-item-options>
+
+      <ion-item-options side="right">
+        <button ion-button (click)="add()">Unread</button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-list>
+    <ion-list-header>Suggested items</ion-list-header>
+    <ion-item-sliding *ngFor="let item of suggestedItems">
       <ion-item>
         #{{ item.id }}. {{ item.name }}
       </ion-item>
@@ -25,8 +37,8 @@
       </ion-item-options>
 
       <ion-item-options side="right">
-        <button ion-button (click)="unread(item)">Unread</button>
+        <button ion-button (click)="add()">Unread</button>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-</ion-content>
+</ion-footer>
