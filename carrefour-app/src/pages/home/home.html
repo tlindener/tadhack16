@@ -10,15 +10,19 @@
 <ion-content>
   <ion-list>
     <ion-list-header>
-      My shopping list <span class="pull-right">({{ myItemsLength() }} {{ plural('item',myItemsLength()) }})</span>
+      My shopping list ({{ myItemsLength() }} {{ plural('item',myItemsLength()) }})
     </ion-list-header>
     <ion-item-sliding *ngFor="let item of myItems">
       <ion-item>
-        <ion-label>{{ item.name }}</ion-label>
+        <ion-label>{{ item.name }}
+          <span class="pull-right" *ngFor="let category of getItemDiscountCategories(item)">
+            {{category}}
+          </span>
+        </ion-label>
         <ion-checkbox></ion-checkbox>
       </ion-item>
-      <ion-item-options side="left">
-        <button ion-button (click)="remove(item)">Remove</button>
+      <ion-item-options side="left" (ionSwipe)="remove(item)">
+        <button ion-button expandable (click)="remove(item)">Remove</button>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
@@ -27,6 +31,9 @@
     <ion-item-sliding *ngFor="let item of suggestedItems">
       <ion-item>
         {{ item.name }}
+        <span class="pull-right" *ngFor="let category of getItemDiscountCategories(item)">
+          {{category}}
+        </span>
       </ion-item>
       <ion-item-options side="left">
         <button ion-button (click)="add(item)">Add</button>
