@@ -10,15 +10,16 @@
 <ion-content>
   <ion-list>
     <ion-list-header>
-      My shopping list <span class="pull-right">({{ myItemsLength() }} {{ plural('item',myItemsLength()) }})</span>
+      My shopping list ({{ myItemsLength() }} {{ plural('item',myItemsLength()) }})
+      <span class="pull-right"><ion-icon name="cart"></ion-icon> Total cart: {{ totalCartPrice() }} €</span>
     </ion-list-header>
     <ion-item-sliding *ngFor="let item of myItems">
       <ion-item>
-        <ion-label>{{ item.name }} <span class="pull-right">{{item.price}}€</span></ion-label>
+        <ion-label>{{ item.name }} <span class="pull-right">{{euro(item.price)}}</span></ion-label>
         <ion-checkbox></ion-checkbox>
       </ion-item>
-      <ion-item-options side="left">
-        <button ion-button (click)="remove(item)">Remove</button>
+      <ion-item-options side="left" (ionSwipe)="remove(item)">
+        <button ion-button expandable (click)="remove(item)">Remove</button>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
@@ -29,14 +30,11 @@
     <ion-list-header>Suggested items</ion-list-header>
     <ion-item-sliding *ngFor="let item of suggestedItems">
       <ion-item>
-        #{{ item.id }}. {{ item.name }}
+        #{{ item.id }}. {{ item.name }} <span class="pull-right">{{euro(item.price)}}</span>
       </ion-item>
       <ion-item-options side="left">
         <button ion-button (click)="add(item)">Add</button>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-  <ion-toolbar>
-    <ion-title class="pull-right"> <ion-icon name="cart"></ion-icon> Total cart: {{ totalCartPrice() }} € </ion-title>
-  </ion-toolbar>
 </ion-footer>
