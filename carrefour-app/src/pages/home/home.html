@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Shop</ion-title>
+    <ion-title (click)="bbs()">My itemss</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -15,26 +15,31 @@
     </ion-list-header>
     <ion-item-sliding *ngFor="let item of myItems">
       <ion-item>
-        <ion-label>{{ item.name }} <span class="pull-right">{{euro(item.price)}}</span></ion-label>
+        <ion-label>{{ item.name }}
+          <span class="pull-right" *ngFor="let category of getItemDiscountCategories(item)">
+            {{category}}
+          </span>
+        </ion-label>
         <ion-checkbox></ion-checkbox>
       </ion-item>
       <ion-item-options side="left" (ionSwipe)="remove(item)">
         <button ion-button expandable (click)="remove(item)">Remove</button>
       </ion-item-options>
     </ion-item-sliding>
-  </ion-list>
-</ion-content>
 
-<ion-footer>
+  </ion-list>
   <ion-list>
     <ion-list-header>Suggested items</ion-list-header>
     <ion-item-sliding *ngFor="let item of suggestedItems">
       <ion-item>
-        #{{ item.id }}. {{ item.name }} <span class="pull-right">{{euro(item.price)}}</span>
+        #{{ item.id }}. {{ item.name }}
+        <span class="pull-right" *ngFor="let category of getItemDiscountCategories(item)">
+          {{category}}
+        </span>
       </ion-item>
       <ion-item-options side="left">
         <button ion-button (click)="add(item)">Add</button>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-</ion-footer>
+</ion-content>
