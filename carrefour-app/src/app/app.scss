@@ -19,6 +19,38 @@
   background-color: #d6e4ff;
 }
 
+.profile {
+    text-align: center;
+}
+
 .list-ios {
-    margin: -1px 0 -1px 0;
+    margin: -1px 0 10px 0;
+}
+
+.profile-img {
+    border: 1px solid #a1c1ff;
+    -webkit-border-radius: 200px;
+    -moz-border-radius: 200px;
+    border-radius: 200px;
+    width: 200px;
+    height: 200px;
+    background-size: cover;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+ion-list-header {
+    background: #ffef95 !important;
+}
+
+.pull-right {
+  float: right;
+
+  span {
+    text-decoration: line-through;
+  }
+
+  b {
+    color: red;
+  }
 }

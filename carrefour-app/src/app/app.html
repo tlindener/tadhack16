@@ -6,9 +6,21 @@
   </ion-header>
 
   <ion-content>
+    <ion-card>
+      <div class="profile-img" style="background-image: url(assets/profile.jpg)"></div>
+      <ion-card-content class="profile">
+        <ion-card-title>
+          Penélope Cruz
+        </ion-card-title>
+        <p>
+          Customer ID: 542365
+        </p>
+      </ion-card-content>
+    </ion-card>
+
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
+        <ion-icon [name]="p.icon" color="primary" item-left></ion-icon> {{p.title}}
       </button>
     </ion-list>
   </ion-content>

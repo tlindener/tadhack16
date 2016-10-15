@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Settings</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      Some settings
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Number of suggested items</ion-label>
+      <ion-select [(ngModel)]="gaming">
+        <ion-option value="3">3</ion-option>
+        <ion-option value="4">4</ion-option>
+        <ion-option value="5" ng-selected="true">5</ion-option>
+        <ion-option value="6">6</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-range [(ngModel)]="brightness">
+        <ion-icon range-left small name="sunny"></ion-icon>
+        <ion-icon range-right name="sunny"></ion-icon>
+      </ion-range>
+    </ion-item>
+  </ion-list>
+</ion-content>

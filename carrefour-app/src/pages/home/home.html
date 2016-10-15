@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Shop</ion-title>
+    <ion-title>Shopping list</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -14,7 +14,7 @@
     </ion-list-header>
     <ion-item-sliding *ngFor="let item of myItems">
       <ion-item>
-        <ion-label>{{ item.name }} <span class="pull-right">{{item.price}}€</span></ion-label>
+        <ion-label>{{ item.name }}</ion-label>
         <ion-checkbox></ion-checkbox>
       </ion-item>
       <ion-item-options side="left">
@@ -22,21 +22,15 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-</ion-content>
-
-<ion-footer>
   <ion-list>
     <ion-list-header>Suggested items</ion-list-header>
     <ion-item-sliding *ngFor="let item of suggestedItems">
       <ion-item>
-        #{{ item.id }}. {{ item.name }}
+        {{ item.name }}
       </ion-item>
       <ion-item-options side="left">
         <button ion-button (click)="add(item)">Add</button>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-  <ion-toolbar>
-    <ion-title class="pull-right"> <ion-icon name="cart"></ion-icon> Total cart: {{ totalCartPrice() }} € </ion-title>
-  </ion-toolbar>
-</ion-footer>
+</ion-content>

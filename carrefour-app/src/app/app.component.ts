@@ -3,7 +3,8 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
 
 import { HomePage } from '../pages/home/home';
-import { Page2 } from '../pages/page2/page2';
+import { Discounts } from '../pages/discounts/discounts';
+import { Settings } from '../pages/settings/settings';
 
 
 @Component({
@@ -21,8 +22,9 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Shopping list', component: HomePage },
-      { title: 'Settings', component: Page2 }
+      { title: 'Shopping list', component: HomePage, icon: "ios-cart-outline" },
+      { title: 'Discounts', component: Discounts, icon: "ios-pricetags-outline" },
+      { title: 'Settings', component: Settings, icon: "ios-settings" }
     ];
 
   }

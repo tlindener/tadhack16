@@ -10,21 +10,21 @@ import { ItemSliding } from 'ionic-angular';
 export class HomePage {
 
   public myItems = [
-    { id : 1, name: "Tomas", price: 5 },
-    { id : 2, name: "Jeroen", price: 5 },
-    { id : 3, name: "Ryan", price: 5 },
-    { id : 4, name: "Tomas", price: 5 },
-    { id : 5, name: "Jeroen", price: 5 },
-    { id : 6, name: "Ryan", price: 5 },
-    { id : 7, name: "Tomas", price: 5 },
-    { id : 8, name: "Jeroen", price: 5 },
-    { id : 9, name: "Ryan", price: 5 }
+    { id : 1, name: "Tomas", price: 4.99 },
+    { id : 2, name: "Jeroen", price: 4.99 },
+    { id : 3, name: "Ryan", price: 13.99 },
+    { id : 4, name: "Tomas", price: 4.99 },
+    { id : 5, name: "Jeroen", price: 34.99 },
+    { id : 6, name: "Ryan", price: 4.99 },
+    { id : 7, name: "Tomas", price: 4.99 },
+    { id : 8, name: "Jeroen", price: 4.99 },
+    { id : 9, name: "Ryan", price: 4.99 }
   ];
 
   public suggestedItems = [
-    { id : 1, name: "Tomas", price: 5 },
-    { id : 2, name: "Jeroen", price: 5 },
-    { id : 3, name: "Ryan", price: 5 }
+    { id : 1, name: "Tomas", price: 5.34 },
+    { id : 2, name: "Jeroen", price: 23.99 },
+    { id : 3, name: "Ryan", price: 2.79 }
   ];
 
   public removedItems = [];
@@ -60,7 +60,7 @@ export class HomePage {
     for (var i=0; i < this.myItems.length; i++) {
       price += this.myItems[i].price;
     }
-    return price;
+    return Math.round(price*100)/100;
   }
 
   myItemsLength() {
