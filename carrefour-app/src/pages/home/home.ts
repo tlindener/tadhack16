@@ -22,43 +22,45 @@ export class HomePage {
   // DEFINITIONS
 
   public myItems = [
-    { id : 1, name: "Milk", discounted: 0 },
-    { id : 2, name: "Cookies", discounted: 0 },
-    { id : 3, name: "Beer", discounted: 0 },
-    { id : 4, name: "Diapers", discounted: 0 },
-    { id : 5, name: "Nuts", discounted: 0 }
+    { id : 1, name: "CERVEZA MAHOU CLAS", discounted: 0 },
+    { id : 2, name: "KETCHUP 50%MENO AZUC", discounted: 0 },
+    { id : 3, name: "MACARRONES CARREFOUR", discounted: 0 },
+    { id : 4, name: "PECHUGA PAVO ELPOZO", discounted: 0 },
+    { id : 5, name: "PAN BIMBO CORTEZA", discounted: 0 }
   ];
 
   public suggestedItems = [
-    { id : 1, name: "Snickers", discounted: 0 },
-    { id : 2, name: "Fish crackers", discounted: 0 },
-    { id : 3, name: "Corn Syrup", discounted: 0 }
+    { id : 1, name: "TINTE OLIA 9.3GOLDEN", discounted: 0, discount: 25 },
+    { id : 2, name: "COCA COLA BI-PACK", discounted: 0 },
+    { id : 3, name: "LECHE SEMI. PRESID", discounted: 0 }
   ];
 
   public promotions = [
     {
       id: 1,
-      items: ['Milk','Cookies','Corn Syrup'],
+      items: ['CERVEZA MAHOU CLAS','KETCHUP 50%MENO AZUC','LECHE SEMI. PRESID'],
       discountType: 2,
       discountAmount: 5,
+      count: 3,
       discountedItem: {
-        id : 6, name: "Free Snickers", discounted: 1
+        id : 6, name: "50% discount on these items", discounted: 1
       }
     },
     {
       id: 2,
-      items: ['Beer','Diapers','Mars','Condoms'],
+      items: ['MACARRONES CARREFOUR','PECHUGA PAVO ELPOZO','MANZANA GOLDEN','QUESO BARRA EDAM'],
       discountType: 1,
       discountAmount: 50,
+      count: 4,
       discountedItem: {
-        id : 7, name: "Free Fish crackers", discounted: 1
+        id : 7, name: "FREE Snickers!", discounted: 1
       }
     }
   ];
 
   public categoryColors = {
-    id_1: '#FF0000',
-    id_2: '#800000'
+    id_1: '#d2ffb1',
+    id_2: '#EAD9FF'
   };
 
   // FUNCTIONS
@@ -97,6 +99,19 @@ export class HomePage {
     }
   }
 
+  public getCategory(id) {
+    for(var k=0; k < this.promotions.length; k++) {
+      if (this.promotions[k].id == id){
+        return this.promotions[k];
+      }
+    }
+    return null;
+  }
+
+  public getCount(obje) {
+    return obje ? obje.count : null;
+  }
+
   public isLegalDiscount(item, discounts){
     for(var k=0; k < discounts.length; k++) {
       if (item.name == discounts[k].discountedItem.name){
@@ -121,7 +136,7 @@ export class HomePage {
         }
       }
     }
-    return ids;
+    return ids[0] ? ids[0] : null;
   }
 
   public subsetOf(arr1, arr2) {

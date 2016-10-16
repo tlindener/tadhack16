@@ -8,15 +8,15 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list class="products">
     <ion-list-header>
       My shopping list ({{ myItemsLength() }} {{ plural('item',myItemsLength()) }})
     </ion-list-header>
     <ion-item-sliding *ngFor="let item of myItems">
-      <ion-item>
+      <ion-item [ngStyle]="{ 'background-color': getCategoryColor(getItemDiscountCategories(item)) }">
         <ion-label>{{ item.name }}
-          <span class="pull-right" *ngFor="let category of getItemDiscountCategories(item)">
-            {{category}}
+          <span class="pull-right">
+            {{getCount(getCategory(getItemDiscountCategories(item)))}}
           </span>
         </ion-label>
         <ion-checkbox></ion-checkbox>
@@ -26,14 +26,15 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-  <ion-list>
+  <ion-list class="products">
     <ion-list-header>Suggested items</ion-list-header>
     <ion-item-sliding *ngFor="let item of suggestedItems">
-      <ion-item>
+      <ion-item [ngStyle]="{ 'background-color': getCategoryColor(getItemDiscountCategories(item)) }">
         {{ item.name }}
-        <span class="pull-right" *ngFor="let category of getItemDiscountCategories(item)">
-          {{category}}
-        </span>
+          <span class="pull-right">
+            {{getCount(getCategory(getItemDiscountCategories(item)))}}
+          </span>
+            <button ion-button outline color="danger" [hidden]="!item.discount" class="pull-right">-{{ item.discount }}%</button>
       </ion-item>
       <ion-item-options side="left">
         <button ion-button (click)="add(item)">Add</button>

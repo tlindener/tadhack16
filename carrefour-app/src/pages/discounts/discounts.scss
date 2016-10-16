@@ -1,11 +1,12 @@
 .pull-right {
   float: right;
+}
 
-  span {
-    text-decoration: line-through;
+.products {
+  ion-item {
+    text-transform: lowercase;
   }
-
-  b {
-    color: red;
+  ion-item *:first-letter {
+    text-transform: uppercase;
   }
 }

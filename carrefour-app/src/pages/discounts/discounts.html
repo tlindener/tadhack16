@@ -13,20 +13,20 @@
       Discount groups <span class="pull-right"># of items needed:</span>
     </ion-list-header>
     <ion-item-sliding *ngFor="let item of discountGroups">
-      <ion-item>
+      <ion-item [ngStyle]="{ 'background-color': item.color }">
         {{ item.name }}
-        <button ion-button item-right [ngStyle]="{ 'background-color': item.color }" (click)="buttonClick()">{{ item.count }}</button>
+        <span class="pull-right">{{ item.count }}</span>
       </ion-item>
     </ion-item-sliding>
   </ion-list>
-  <ion-list>
+  <ion-list class="products">
     <ion-list-header>
       Discounted items
     </ion-list-header>
     <ion-item-sliding *ngFor="let item of discountItems">
       <ion-item>
         {{ item.name }}
-        <button ion-button outline item-right color="danger" (click)="buttonClick()">-{{ item.discount }}%</button>
+        <button ion-button outline color="danger" (click)="buttonClick()">-{{ item.discount }}%</button>
       </ion-item>
       <ion-item-options side="left">
         <button ion-button (click)="add(item)">Add</button>
