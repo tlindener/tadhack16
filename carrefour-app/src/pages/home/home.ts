@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import {Pipe, PipeTransform} from 'angular2/core';
 import { NavController, ToastController } from 'ionic-angular';
 import { ItemSliding } from 'ionic-angular';
 import {GlobalService} from "../../providers/global-service";
