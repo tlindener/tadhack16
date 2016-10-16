@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
 import { ItemSliding } from 'ionic-angular';
+import {GlobalService} from "../../providers/global-service";
 
 @Component({
   selector: 'page-discounts',
@@ -9,10 +10,7 @@ import { ItemSliding } from 'ionic-angular';
 })
 export class Discounts {
 
-  public discountGroups = [
-    { id : 1, name: "50% discount on green items", discount: 15, color: "#d2ffb1", count: 3 },
-    { id : 2, name: "Get FREE Snickers!", discount: 10, color: "#EAD9FF", count: 4 }
-  ];
+  public discountGroups = [];
 
   public discountItems = [
     { id : 1, name: "CERVEZA MAHOU CLAS", discount: 15 },
@@ -24,12 +22,27 @@ export class Discounts {
     { id : 7, name: "COCA COLA BI-PACK", discount: 15 },
     { id : 8, name: "LECHE SEMI. PRESID", discount: 15 }
   ];
-  
-  constructor(public navCtrl: NavController) {
+
+  constructor(public navCtrl: NavController, public app: GlobalService) {
+
+    for(var i = 0; i < this.app.promotions.length; i++){
+      var promotions = this.app.promotions;
+      var id = promotions[i].id;
+      this.discountGroups.push({
+        id: id,
+        name: promotions[i].discountedItem.name,
+        color: this.app.getCategoryColor(id),
+        count: this.app.countItemsInCat(id)
+      });
+    }
   }
 
   getColor(item) {
     return item.color;
+  }
+
+  public countMissingItemsCat(id){
+    return this.app.countMissingItemsCat(id);
   }
 
 }

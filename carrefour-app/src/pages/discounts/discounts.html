@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Discounts</ion-title>
+    <ion-title >Discounts</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -15,7 +15,9 @@
     <ion-item-sliding *ngFor="let item of discountGroups">
       <ion-item [ngStyle]="{ 'background-color': item.color }">
         {{ item.name }}
-        <span class="pull-right">{{ item.count }}</span>
+        <span item-right [ngStyle]="{ 'background-color': item.color }">
+          {{ countMissingItemsCat(item.id) }} / {{ item.count }}
+        </span>
       </ion-item>
     </ion-item-sliding>
   </ion-list>
@@ -26,7 +28,7 @@
     <ion-item-sliding *ngFor="let item of discountItems">
       <ion-item>
         {{ item.name }}
-        <button ion-button outline item-right color="danger" (click)="buttonClick()">-{{ item.discount }}%</button>
+        <span item-right color="danger" (click)="buttonClick()">-{{ item.discount }}%</span>
       </ion-item>
       <ion-item-options side="left">
         <button ion-button (click)="add(item)">Add</button>

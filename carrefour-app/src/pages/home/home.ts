@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { NavController, ToastController } from 'ionic-angular';
 import { ItemSliding } from 'ionic-angular';
+import {GlobalService} from "../../providers/global-service";
 
 Array.prototype.diff = function(a) {
   return this.filter(function(i) {return a.indexOf(i) < 0;});
@@ -15,53 +16,14 @@ Array.prototype.diff = function(a) {
 
 export class HomePage {
 
-  constructor(public navCtrl: NavController, private toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, private toastCtrl: ToastController, public app: GlobalService) {
     this.recalculate();
   }
 
   // DEFINITIONS
 
-  public myItems = [
-    { id : 1, name: "CERVEZA MAHOU CLAS", discounted: 0 },
-    { id : 2, name: "KETCHUP 50%MENO AZUC", discounted: 0 },
-    { id : 3, name: "MACARRONES CARREFOUR", discounted: 0 },
-    { id : 4, name: "PECHUGA PAVO ELPOZO", discounted: 0 },
-    { id : 5, name: "PAN BIMBO CORTEZA", discounted: 0 }
-  ];
-
-  public suggestedItems = [
-    { id : 1, name: "TINTE OLIA 9.3GOLDEN", discounted: 0, discount: 25 },
-    { id : 2, name: "COCA COLA BI-PACK", discounted: 0 },
-    { id : 3, name: "LECHE SEMI. PRESID", discounted: 0 }
-  ];
-
-  public promotions = [
-    {
-      id: 1,
-      items: ['CERVEZA MAHOU CLAS','KETCHUP 50%MENO AZUC','LECHE SEMI. PRESID'],
-      discountType: 2,
-      discountAmount: 5,
-      count: 3,
-      discountedItem: {
-        id : 6, name: "50% discount on green items", discounted: 1
-      }
-    },
-    {
-      id: 2,
-      items: ['MACARRONES CARREFOUR','PECHUGA PAVO ELPOZO','MANZANA GOLDEN','QUESO BARRA EDAM'],
-      discountType: 1,
-      discountAmount: 50,
-      count: 4,
-      discountedItem: {
-        id : 7, name: "FREE Snickers!", discounted: 1
-      }
-    }
-  ];
-
-  public categoryColors = {
-    id_1: '#d2ffb1',
-    id_2: '#EAD9FF'
-  };
+  public myItems = this.app.myItems;
+  public suggestedItems = this.app.suggestedItems;
 
   // FUNCTIONS
   recalculate() {
@@ -70,7 +32,7 @@ export class HomePage {
     // Adding discounted items
     var discounts = this.getFulfilledDiscountInfo(this.myItems);
     for (var i=0; i < discounts.length; i++) {
-      if (!this.subsetOf([discounts[i].discountedItem.name], this.namesArrayFromObjList(this.myItems))){
+      if (!this.app.subsetOf([discounts[i].discountedItem.name], this.app.namesArrayFromObjList(this.myItems))){
         this.myItems.push(discounts[i].discountedItem);
       }
     }
@@ -84,16 +46,30 @@ export class HomePage {
     }
 
     // --------- Suggested items generation from missing for discount items
-    var missing = this.getMissingItems(this.myItems);
+    var missing = this.app.getMissingItems(this.myItems);
     for (var i = 0; i < missing.length; i++) {
-      for (var k = 0; k < missing[i].items.length; k++) {
-        if (!this.subsetOf([missing[i].items[k]], this.namesArrayFromObjList(this.suggestedItems))){
-          var id = Math.round(Math.random()*100) + 1;
-          this.suggestedItems.push({
-            id: id,
-            name: missing[i].items[k],
-            discounted: 0
-          });
+      if (missing[i].items.length > 0) {
+        for (var k = 0; k < 1; k++) {
+          if (!this.app.subsetOf([missing[i].items[k]], this.app.namesArrayFromObjList(this.suggestedItems))){
+
+            var id = Math.round(Math.random()*100) + 1;
+            this.suggestedItems.push({
+              id: id,
+              name: missing[i].items[k],
+              discounted: 0
+            });
+          }
+        }
+      }
+    }
+  }
+
+  public countSuggestedItemsInCat(id){
+    var count;
+    for (var i = 0; i < this.app.promotions.length; i++) {
+      if (this.app.promotions[i].id == id) {
+        for(var k = 0; k < this.suggestedItems.length; k++){
+
         }
       }
     }
@@ -121,62 +97,36 @@ export class HomePage {
     return false;
   }
 
-  public getCategoryColor(id) {
-    return this.categoryColors['id_' + id];
+  public hasCat(item){
+    return (this.app.countItemsInCat(this.getItemDiscountCategories(item)) > 0) && !item.discounted;
   }
-
   // Given an item object, fins to which discount categories it belongs to
   public getItemDiscountCategories(item) {
     var ids = [];
-    for (var i = 0; i < this.promotions.length; i++) {
-      var items = this.promotions[i].items;
+    for (var i = 0; i < this.app.promotions.length; i++) {
+      var items = this.app.promotions[i].items;
       for (var k = 0; k < items.length; k++) {
         if (item.name == items[k]) {
-          ids.push(this.promotions[i].id);
+          ids.push(this.app.promotions[i].id);
         }
+      }
+      if (item.name == this.app.promotions[i].discountedItem.name) {
+        ids.push(this.app.promotions[i].id);
       }
     }
     return ids[0] ? ids[0] : null;
   }
 
-  public subsetOf(arr1, arr2) {
-    return arr1.every(elem => arr2.indexOf(elem) > -1);
-  }
-
-  public namesArrayFromObjList(objArr){
-    var arr = [];
-    for (var i=0; i < objArr.length; i++) {
-      arr.push(objArr[i].name);
-    }
-    return arr;
-  }
-
   public getFulfilledDiscountInfo(itemList){
     var discounts = [];
-    for (var i=0; i < this.promotions.length; i++) {
-      var categoryItems = this.promotions[i].items;
-      var itemNames = this.namesArrayFromObjList(itemList);
-      if (this.subsetOf(categoryItems, itemNames)){
-        discounts.push(this.promotions[i]);
+    for (var i=0; i < this.app.promotions.length; i++) {
+      var categoryItems = this.app.promotions[i].items;
+      var itemNames = this.app.namesArrayFromObjList(itemList);
+      if (this.app.subsetOf(categoryItems, itemNames)){
+        discounts.push(this.app.promotions[i]);
       }
     }
     return discounts;
-  }
-
-  public getMissingItems(itemList){
-    var missing = [];
-    for (var i=0; i < this.promotions.length; i++) {
-      var categoryItems = this.promotions[i].items;
-      if (!this.subsetOf(itemList, categoryItems)) {
-        var itemNames = this.namesArrayFromObjList(itemList);
-        var missingPerCat = categoryItems.diff(itemNames);
-        missing.push({
-          id: this.promotions[i].id,
-          items: missingPerCat
-        });
-      }
-    }
-    return missing;
   }
 
   public presentToast(item) {
@@ -195,7 +145,7 @@ export class HomePage {
   }
 
   public add(item) {
-    if (!this.subsetOf([item.name], this.namesArrayFromObjList(this.myItems))){
+    if (!this.app.subsetOf([item.name], this.app.namesArrayFromObjList(this.myItems))){
       this.myItems.push(item);
     }
     for (var i=0; i < this.suggestedItems.length; i++) {
@@ -207,9 +157,9 @@ export class HomePage {
   }
 
   public remove(item) {
-    if (!this.subsetOf([item.name], this.namesArrayFromObjList(this.suggestedItems))){
+    /* if (!this.subsetOf([item.name], this.namesArrayFromObjList(this.suggestedItems))){
       this.suggestedItems.push(item);
-    }
+    }*/
     for (var i=0; i < this.myItems.length; i++) {
       if (this.myItems[i].name === item.name) {
         this.presentToast(item);
@@ -251,6 +201,18 @@ export class HomePage {
       ]
     });
     confirm.present();
+  }
+
+  public countMissingItemsCat(id){
+    return this.app.countMissingItemsCat(id);
+  }
+
+  public countItemsInCat(id) {
+    return this.app.countItemsInCat(id);
+  }
+
+  public getCategoryColor(id){
+    return this.app.getCategoryColor(id);
   }
 
 }

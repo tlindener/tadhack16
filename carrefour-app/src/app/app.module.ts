@@ -4,6 +4,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { Discounts } from '../pages/discounts/discounts';
 import { Settings } from '../pages/settings/settings';
+import {GlobalService} from "../providers/global-service";
 
 @NgModule({
   declarations: [
@@ -22,6 +23,6 @@ import { Settings } from '../pages/settings/settings';
     Discounts,
     Settings
   ],
-  providers: []
+  providers: [GlobalService]
 })
 export class AppModule {}

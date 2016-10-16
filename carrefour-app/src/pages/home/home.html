@@ -15,8 +15,8 @@
     <ion-item-sliding *ngFor="let item of myItems">
       <ion-item [ngStyle]="{ 'background-color': getCategoryColor(getItemDiscountCategories(item)) }">
         <ion-label>{{ item.name }}
-          <span class="pull-right">
-            {{getCount(getCategory(getItemDiscountCategories(item)))}}
+          <span class="pull-right" *ngIf="hasCat(item)">
+             {{ countMissingItemsCat(getItemDiscountCategories(item)) }} / {{ countItemsInCat(getItemDiscountCategories(item)) }}
           </span>
         </ion-label>
         <ion-checkbox></ion-checkbox>
@@ -33,8 +33,8 @@
     <ion-item-sliding *ngFor="let item of suggestedItems">
       <ion-item [ngStyle]="{ 'background-color': getCategoryColor(getItemDiscountCategories(item)) }">
         {{ item.name }}
-          <span class="pull-right">
-            {{getCount(getCategory(getItemDiscountCategories(item)))}}
+          <span class="pull-right" *ngIf="hasCat(item)">
+            {{ countMissingItemsCat(getItemDiscountCategories(item)) }} / {{ countItemsInCat(getItemDiscountCategories(item)) }}
           </span>
           <button ion-button outline item-right color="danger" [hidden]="!item.discount">-{{ item.discount }}%</button>
         <button ion-button outline item-right color="danger" [hidden]="!item.discounted">FREE</button>
