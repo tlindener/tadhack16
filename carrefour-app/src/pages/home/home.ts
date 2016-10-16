@@ -43,7 +43,7 @@ export class HomePage {
       discountAmount: 5,
       count: 3,
       discountedItem: {
-        id : 6, name: "50% discount on these items", discounted: 1
+        id : 6, name: "50% discount on green items", discounted: 1
       }
     },
     {

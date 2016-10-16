@@ -20,6 +20,8 @@
           </span>
         </ion-label>
         <ion-checkbox></ion-checkbox>
+        <button ion-button outline item-right color="danger" [hidden]="!item.discount">-{{ item.discount }}%</button>
+        <button ion-button outline item-right color="secondary" [hidden]="!item.discounted">FREE</button>
       </ion-item>
       <ion-item-options side="left" (ionSwipe)="remove(item)">
         <button ion-button expandable (click)="remove(item)">Remove</button>
@@ -34,7 +36,8 @@
           <span class="pull-right">
             {{getCount(getCategory(getItemDiscountCategories(item)))}}
           </span>
-            <button ion-button outline color="danger" [hidden]="!item.discount" class="pull-right">-{{ item.discount }}%</button>
+          <button ion-button outline item-right color="danger" [hidden]="!item.discount">-{{ item.discount }}%</button>
+        <button ion-button outline item-right color="danger" [hidden]="!item.discounted">FREE</button>
       </ion-item>
       <ion-item-options side="left">
         <button ion-button (click)="add(item)">Add</button>

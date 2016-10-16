@@ -26,7 +26,7 @@
     <ion-item-sliding *ngFor="let item of discountItems">
       <ion-item>
         {{ item.name }}
-        <button ion-button outline color="danger" (click)="buttonClick()">-{{ item.discount }}%</button>
+        <button ion-button outline item-right color="danger" (click)="buttonClick()">-{{ item.discount }}%</button>
       </ion-item>
       <ion-item-options side="left">
         <button ion-button (click)="add(item)">Add</button>
